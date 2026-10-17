@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<RealDashCAN version="2">
+  <frames>
+    <frame id="0x131">
+      <value name="HVAC Cabin Set Temperature" units="F" offset="0" length="1" conversion="62+(V-1)*1.75" />
+      <value name="HVAC Cabin Temperature Raw" offset="0" length="1" />
+    </frame>
+    <frame id="0x531">
+      <value name="HVAC Outside Temperature" units="F" offset="2" length="1" conversion="V-42" />
+    </frame>
+    <frame id="0x132">
+      <value name="HVAC Vent Mode" offset="0" length="1" enum="17:Head Only,18:Head and Floor,19:Floor Only,20:Defrost and Floor,21:Defrost Only,22:Defrost and AUTO,#:Unknown" />
+      <value name="HVAC AC Compressor Mode" offset="2" length="1" enum="12:Off,13:On,#:Unknown" />
+      <value name="HVAC Air Recirculation" offset="1" length="1" enum="3:Off,7:On,#:Unknown" />
+      <value name="HVAC Fan Speed" offset="7" length="1" conversion="V-240" />
+      <value name="HVAC Vent Mode Raw" offset="0" length="1" />
+      <value name="HVAC Air Recirculation Raw" offset="1" length="1" />
+      <value name="HVAC AC Compressor Raw" offset="2" length="1" />
+    </frame>
+  </frames>
+</RealDashCAN>
