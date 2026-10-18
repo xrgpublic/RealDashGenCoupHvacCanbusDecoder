@@ -7,7 +7,7 @@ Display the factory HVAC information from a **Hyundai Genesis Coupe BK2** on a c
 **2013 implementation and walkthrough:** [HVAC Display — Replacing Blue LCD on Double DIN Swap](https://www.reddit.com/r/genesiscoupe/comments/1x803rw/comment/phbqmzb/)
 
 > [!IMPORTANT]
-> The **2013 2.0T R-Spec manual-climate profile** is based on testing in the 2013 car. The **2015 R-Spec automatic-climate codes** were documented by GrayBoltWolf and have **not been independently tested with this project's RealDash configuration**. Select the configuration that matches your car and confirm the raw readings before trusting the dashboard.
+> The **2013 2.0T R-Spec manual-climate profile** is based on testing in the 2013 car. The **2015 R-Spec automatic-climate codes** were documented by GrayBoltWolf; although this repository includes a 2015-specific configuration, it has **not been independently tested on a 2015 car by the project author**. Select the configuration that matches your car and confirm the raw readings before trusting the dashboard.
 
 ## What this does
 
@@ -28,22 +28,38 @@ This is a **display/decoder project**, not an HVAC control replacement. It does 
 | Vehicle | Climate system | Source | Status |
 | --- | --- | --- | --- |
 | **2013 Genesis Coupe 2.0T R-Spec (BK2)** | Manual climate control | Project author's car | Tested by project author |
-| **2015 Genesis Coupe R-Spec (BK2)** | Automatic climate control | GrayBoltWolf's CAN research | Codes published; RealDash profile needs vehicle testing |
+| **2015 Genesis Coupe R-Spec (BK2)** | Automatic climate control | GrayBoltWolf's CAN research | 2015-specific files provided; vehicle testing still needed |
 | Other BK2 trims/years | Varies | May share some frames | Not confirmed by this project |
 | BK1 / 2010–2012 | Varies | Different hardware may apply | Not supported/verified |
 
 The profile differences matter: the 2013 and 2015 versions do **not** use identical temperature and air-intake interpretations.
 
-## Files
+## Repository structure and downloads
 
-On the [GitHub repository](https://github.com/xrgpublic/RealDashGenCoupHvacCanbusDecoder/tree/main), look for these files named in the 2013 installation post:
+The project is organized into **two year-specific folders**. Choose the folder that matches your car; **do not mix the 2013 XML with the 2015 dashboard, or vice versa**.
 
-| File | Purpose |
-| --- | --- |
-| `HVACdash_Production.rd` | Importable RealDash dashboard layout |
-| `genesis_coupe_bk2_hvac_Final.xml` | RealDash CAN description / decoder from the 2013 setup |
+```text
+RealDashGenCoupHvacCanbusDecoder/
+├── README.md
+├── 2013RSpec/
+│   ├── CanBusDecoder_2013RSpec.xml
+│   └── HVACdash_2013RSpec.rd
+└── 2015RSpec/
+    ├── CanBusDecoder_2015RSpec.xml
+    └── HVACdash_2015RSpec.rd
+```
 
-If additional model-specific XML or `.rd` files are present, choose the files for **your model year and HVAC type**. File names and layout may change as the repository evolves; consult the GitHub file listing.
+| Vehicle | CAN decoder (XML) | RealDash dashboard (`.rd`) | Folder |
+| --- | --- | --- | --- |
+| **2013 R-Spec** | [`CanBusDecoder_2013RSpec.xml`](https://github.com/xrgpublic/RealDashGenCoupHvacCanbusDecoder/blob/main/2013RSpec/CanBusDecoder_2013RSpec.xml) | [`HVACdash_2013RSpec.rd`](https://github.com/xrgpublic/RealDashGenCoupHvacCanbusDecoder/blob/main/2013RSpec/HVACdash_2013RSpec.rd) | [2013RSpec](https://github.com/xrgpublic/RealDashGenCoupHvacCanbusDecoder/tree/main/2013RSpec) |
+| **2015 R-Spec** | [`CanBusDecoder_2015RSpec.xml`](https://github.com/xrgpublic/RealDashGenCoupHvacCanbusDecoder/blob/main/2015RSpec/CanBusDecoder_2015RSpec.xml) | [`HVACdash_2015RSpec.rd`](https://github.com/xrgpublic/RealDashGenCoupHvacCanbusDecoder/blob/main/2015RSpec/HVACdash_2015RSpec.rd) | [2015RSpec](https://github.com/xrgpublic/RealDashGenCoupHvacCanbusDecoder/tree/main/2015RSpec) |
+
+The filenames follow these conventions:
+
+- `CanBusDecoder_YearTrim.xml` — defines the CAN frames, byte offsets, and decoded values for RealDash.
+- `HVACdash_YearTrim.rd` — the matching RealDash dashboard layout.
+
+To download a file on GitHub, open it and use **Download raw file** (or **Raw**, then save the file). Alternatively, download the entire repository using **Code → Download ZIP** and extract your vehicle's folder.
 
 ## Hardware
 
@@ -92,14 +108,14 @@ The original 2015 research describes these wires at the LCD:
 
 ## Quick start: RealDash
 
-1. Download the appropriate RealDash dashboard (`.rd`) and CAN description (`.xml`) from [the repository](https://github.com/xrgpublic/RealDashGenCoupHvacCanbusDecoder/tree/main).
+1. Open the [2013 R-Spec folder](https://github.com/xrgpublic/RealDashGenCoupHvacCanbusDecoder/tree/main/2013RSpec) or [2015 R-Spec folder](https://github.com/xrgpublic/RealDashGenCoupHvacCanbusDecoder/tree/main/2015RSpec), as appropriate. Download **both** `CanBusDecoder_YearTrim.xml` and `HVACdash_YearTrim.rd` from the **same** folder.
 2. Connect the vehicle's **CAN H / CAN L** wiring at the blue LCD harness to the correct terminals of the USB-CAN adapter. Keep the original harness intact if possible; insulate and secure all connections.
 3. Connect the adapter to the Android tablet through the USB hub/OTG adapter. Ensure the tablet supports the adapter and that USB data works.
-4. Open **RealDash** and load/import the supplied `.rd` dashboard.
+4. Open **RealDash** and load/import your vehicle’s `HVACdash_YearTrim.rd` dashboard.
 5. In RealDash, go to **Garage → your vehicle → Dashboard → Add** in the connection section, and select **Waveshare USB-CAN-A**.
 6. Set the USB adapter's serial-interface baud rate as required by its configured mode. **2,000,000 bps** was used in the project author's working setup.
 7. Set **CAN Speed = 100 kbps** for the LCD-side bus used in the 2013 installation. This setting is **separate** from the USB/serial baud setting. If your interface is connected to a different CAN bus, its CAN bit rate may differ.
-8. Choose **CAN DESCRIPTION FILE** and import the matching `.xml` decoder.
+8. Choose **CAN DESCRIPTION FILE** and import the matching `CanBusDecoder_YearTrim.xml` decoder from that same year-specific folder.
 9. Back out to the dashboard, switch the factory HVAC fan, vents, A/C, intake mode and temperature settings, and check whether the displayed values respond.
 
 > **Baud-rate pitfall:** `2,000,000 bps` is the Waveshare adapter's **USB/serial communication setting**, *not* the vehicle's CAN bit rate. The reference LCD connection uses **100,000 bits/s CAN speed**. These settings are not interchangeable. The 2015 source also discusses a separate 500 kbps higher-speed bus; do not assume the LCD harness is that bus.
@@ -203,7 +219,7 @@ Example: `0x7F` = 127 decimal → **85°F**.
 
 ## 2015 R-Spec — automatic climate control (legacy research)
 
-This mapping comes from [GrayBoltWolf's 2015 R-Spec CAN documentation](https://www.reddit.com/r/genesiscoupe/comments/cqhh4p/genesis_coupe_bk2_can_bus_hvac_display_codes/). It is preserved here as a reference for a separate automatic-climate setup. **A corresponding RealDash profile has not been validated on a 2015 car by this project's author.**
+This mapping comes from [GrayBoltWolf's 2015 R-Spec CAN documentation](https://www.reddit.com/r/genesiscoupe/comments/cqhh4p/genesis_coupe_bk2_can_bus_hvac_display_codes/). A separate [`2015RSpec` RealDash profile](https://github.com/xrgpublic/RealDashGenCoupHvacCanbusDecoder/tree/main/2015RSpec) is included in the repository; **its operation on a 2015 car has not been independently confirmed by this project's author**.
 
 ### Set temperature — `0x131`, byte `2`
 
@@ -236,7 +252,7 @@ The 2015 source identifies the same general frame/byte arrangements for vent mod
 
 ## RealDash XML example: 2013 manual climate
 
-This is the core 2013 decoder as posted in the installation thread, with the raw fields included for diagnostics:
+The **authoritative project file** is [`2013RSpec/CanBusDecoder_2013RSpec.xml`](https://github.com/xrgpublic/RealDashGenCoupHvacCanbusDecoder/blob/main/2013RSpec/CanBusDecoder_2013RSpec.xml). The following is an illustrative excerpt based on the 2013 installation discussion, **not a replacement for the maintained file**:
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -297,7 +313,7 @@ For troubleshooting, start by proving that **raw numeric frame values change** w
 
 Contributions are welcome, especially:
 
-- Testing and correcting the **2015 R-Spec AUTO climate RealDash profile**
+- Testing and validating the **2015RSpec** RealDash profile
 - Reporting verified CAN captures from other Genesis Coupe years/trims
 - Clear connector pinout photographs or verified plug-and-play connector parts
 - Better dashboard layouts, icons, and documentation
