@@ -118,8 +118,6 @@ The original 2015 research describes these wires at the LCD:
 8. Choose **CAN DESCRIPTION FILE** and import the matching `CanBusDecoder_YearTrim.xml` decoder from that same year-specific folder.
 9. Back out to the dashboard, switch the factory HVAC fan, vents, A/C, intake mode and temperature settings, and check whether the displayed values respond.
 
-> **Baud-rate pitfall:** `2,000,000 bps` is the Waveshare adapter's **USB/serial communication setting**, *not* the vehicle's CAN bit rate. The reference LCD connection uses **100,000 bits/s CAN speed**. These settings are not interchangeable. The 2015 source also discusses a separate 500 kbps higher-speed bus; do not assume the LCD harness is that bus.
-
 ## CAN frame overview
 
 The original research identifies three relevant **11-bit CAN identifiers**. Each example below is eight data bytes long and expressed in hexadecimal:
