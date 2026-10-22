@@ -67,11 +67,8 @@ The reference 2013 installation uses:
 
 - A 7-inch Android tablet capable of running [RealDash](https://realdash.net/)
 - A **Waveshare USB-CAN-A** USB-to-CAN adapter
-- A powered or power-capable USB hub / USB-A to USB-C adapter, as required by the tablet
-- Appropriate connector terminals, crimping equipment, insulated automotive wiring, and secure mounting
-- A connection to the vehicle's original blue LCD harness
-
-The original installation used **611-2.2 male terminals** to interface with the existing female LCD connector. A **DJ7104Y** connector housing was proposed as a possible plug-and-play solution, but fitment was **not confirmed** in the referenced post. Do not assume it is the correct mating housing without checking dimensions and pin positions.
+- A USB hub capable of taking in a power source and USB A connector as inputs and outputs to a single USB-C connector.
+- DJ7104Y Male Ket Connector with 611-2.2 male terminal pins to interface with the existing female LCD connector.
 
 ### Basic connection
 
@@ -82,13 +79,11 @@ Genesis Coupe blue LCD harness
 Waveshare USB-CAN-A
      |  USB
      v
-USB hub / OTG adapter
-     |  USB data
+  USB hub
+     |  USB data + Power
      v
 Android tablet running RealDash
 ```
-
-Power the tablet through a suitable, fused automotive USB power supply. Do not use the LCD connector's 12 V pins as USB power without a correctly rated converter.
 
 ### OEM LCD wire-color reference
 
@@ -192,18 +187,18 @@ This is the reported HVAC CAN field; it should not be assumed to prove that the 
 
 ### Shared fan speed — `0x132`, byte `7`
 
-| Hex | Speed |
-| --- | ---: |
-| `F0` | 0 |
-| `F1` | 1 |
-| `F2` | 2 |
-| `F3` | 3 |
-| `F4` | 4 |
-| `F5` | 5 |
-| `F6` | 6 |
-| `F7` | 7 |
-| `F8` | 8 |
-| `F9` | 9 |
+| Hex | Speed 2015RSpec | Speed 2013RSpec
+| --- | ---: | ---: |
+| `F0` | 0 | 0 |
+| `F1` | 1 | - |
+| `F2` | 2 | 1 |
+| `F3` | 3 | 2 |
+| `F4` | 4 | 3 |
+| `F5` | 5 | 4 |
+| `F6` | 6 | 5 |
+| `F7` | 7 | 6 |
+| `F8` | 8 | 7 |
+| `F9` | 9 | 8 |
 
 For these values, `fan speed = V - 240` (where `V` is the unsigned byte interpreted as decimal).
 
