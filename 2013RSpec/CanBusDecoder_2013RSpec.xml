@@ -12,8 +12,7 @@
       <value name="HVAC Vent Mode" offset="0" length="1" enum="17:Head Only,18:Head and Floor,19:Floor Only,20:Defrost and Floor,21:Defrost Only,22:Defrost and AUTO,#:Unknown" />
       <value name="HVAC AC Compressor Mode" offset="2" length="1" enum="12:Off,13:On,#:Unknown" />
       <value name="HVAC Air Recirculation" offset="1" length="1" enum="3:On,7:Off,19:_,23:_,#:Unknown" />
-      <value name="HVAC Fan Speed" offset="7" length="1" enum="240:0,242:1,243:2,244:3,245:4,246:5,247:6,248:7,249:8,#:Unknown" />
-      <value name="HVAC Fan Speed Ter" offset="7" length="1" conversion="V==240?0:V-241" />
+      <value name="HVAC Fan Speed" offset="7" length="1" enum="240:0.0,242:1.0,243:2.0,244:3.0,245:4.0,246:5.0,247:6.0,248:7.0,249:8.0,#:Unknown" />
       <value name="HVAC Vent Mode Raw" offset="0" length="1" />
       <value name="HVAC AC Compressor Raw" offset="2" length="1" />
       <value name="HVAC Air Recirculation Raw" offset="1" length="1" />
